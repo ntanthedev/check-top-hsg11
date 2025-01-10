@@ -1,11 +1,18 @@
 import csv
 import json
+import pandas as pd
 
 # Đọc file CSV và tạo dictionary chứa thông tin và thứ hạng
 student_data = {}
 rankings_by_subject = {}
 
 try:
+    df = pd.read_csv(
+        "diem_thi.csv",
+        dtype={"SBD": "int64", "diem": "float"},
+        keep_default_na=False,  # Tránh tự động chuyển các giá trị trống thành NaN
+        encoding="utf-8"        # Đảm bảo đọc đúng tiếng Việt
+    )
     with open('diem_thi.csv', 'r', encoding='utf-8-sig') as f:
         # Đọc toàn bộ nội dung file
         content = f.readlines()
@@ -86,7 +93,6 @@ try:
     const rankingsBySubject = {json.dumps(rankings_by_subject, ensure_ascii=False)};
     """
 
-    # Ghi ra file data.js
     with open('data.js', 'w', encoding='utf-8') as f:
         f.write(js_content)
         

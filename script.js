@@ -7,6 +7,8 @@ function searchStudent() {
         return;
     }
 
+    // sbd += 1;
+
     if (studentData.hasOwnProperty(sbd)) {
         const student = studentData[sbd];
         const rank = rankingsBySubject[student.mon_thi][sbd];
