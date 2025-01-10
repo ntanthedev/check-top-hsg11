@@ -9,13 +9,12 @@
 <body>
     <div class="container">
         <h1>Tra cứu thông tin thí sinh</h1>
-        <div class="search-box">
-            <input type="text" id="sbd" placeholder="Nhập số báo danh..." required>
-            <button onclick="searchStudent()">Tra cứu</button>
-        </div>
+        <form class="search-box" onsubmit="query(event)">
+            <input type="text" name="sbd" id="sbd" placeholder="Nhập số báo danh..." required>
+            <button type="submit">Tra cứu</button>
+        </form>
         <div id="result" class="result"></div>
     </div>
-    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

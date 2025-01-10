@@ -1,19 +1,16 @@
-function searchStudent() {
-    const sbd = document.getElementById('sbd').value.trim();
+async function query(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const sbd = e.target.sbd.value.trim();
+    const data = await fetch('data.json').then(r => r.json());
     const resultDiv = document.getElementById('result');
-    
-    if (!sbd) {
-        showError('Vui lòng nhập số báo danh');
-        return;
-    }
 
-    // sbd += 1;
-
-    if (studentData.hasOwnProperty(sbd)) {
-        const student = studentData[sbd];
-        const rank = rankingsBySubject[student.mon_thi][sbd];
-        
-        const html = `
+    if (!sbd)
+        return showError('Vui lòng nhập số báo danh');
+    if (data[sbd]) {
+        const s = data[sbd];
+        const pRank = Object.values(data).filter(d => d.mon_thi === s.mon_thi).map(d => d.diem).sort((a, b) => b - a);
+        resultDiv.innerHTML = `
             <div class="student-info">
                 <h2>Thông tin thí sinh</h2>
                 <div class="info-row">
@@ -22,46 +19,44 @@ function searchStudent() {
                 </div>
                 <div class="info-row">
                     <span class="info-label">Họ và tên:</span>
-                    <span>${student.ten}</span>
+                    <span>${s.ten}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Ngày sinh:</span>
-                    <span>${student.ngay_sinh}</span>
+                    <span>${s.ngay_sinh}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Quê quán:</span>
-                    <span>${student.que_quan}</span>
+                    <span>${s.que_quan}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Trường:</span>
-                    <span>${student.truong}</span>
+                    <span>${s.truong}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Môn thi:</span>
-                    <span>${student.mon_thi}</span>
+                    <span>${s.mon_thi}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Điểm:</span>
-                    <span>${student.diem}</span>
+                    <span>${s.diem}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Kết quả:</span>
-                    <span>${student.ket_qua}</span>
+                    <span>${s.ket_qua}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Xếp giải:</span>
-                    <span>${student.xep_giai}</span>
+                    <span>${s.xep_giai}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Thứ hạng:</span>
-                    <span>${rank}</span>
+                    <span>${pRank.indexOf(s.diem) + 1}</span>
                 </div>
             </div>
         `;
-        resultDiv.innerHTML = html;
-    } else {
+    } else
         showError(`Không tìm thấy thông tin của thí sinh có SBD ${sbd}`);
-    }
 }
 
 function showError(message) {
