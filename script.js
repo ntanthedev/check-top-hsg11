@@ -50,7 +50,7 @@ async function query(e) {
                     <span>${s.xep_giai}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Thứ hạng:</span>
+                    <span class="info-label">Thứ hạng theo môn:</span>
                     <span>${pRank.indexOf(s.diem) + 1}</span>
                 </div>
             </div>
