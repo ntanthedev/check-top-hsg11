@@ -26,8 +26,8 @@ async function query(e) {
                     <span>${s.ngay_sinh}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Quê quán:</span>
-                    <span>${s.que_quan}</span>
+                    <span class="info-label">Nơi sinh:</span>
+                    <span>${s.noi_sinh}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Trường:</span>
