@@ -3,17 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tra cứu thông tin thí sinh</title>
+    <title>Tra cứu điểm thi HSG lớp 11 - Hà Tĩnh</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Tra cứu thông tin thí sinh</h1>
-        <form class="search-box" onsubmit="query(event)">
-            <input type="text" name="sbd" id="sbd" placeholder="Nhập số báo danh..." required>
-            <button type="submit">Tra cứu</button>
-        </form>
+        <header>
+            <h1>Tra cứu điểm thi HSG lớp 11</h1>
+            <p class="subtitle">Nhập tên hoặc số báo danh thí sinh cần tìm</p>
+        </header>
+        
+        <!-- Thay đổi đoạn HTML phần form tìm kiếm -->
+        <div class="search-container">
+            <!-- <div class="search-tabs">
+                <button class="tab-btn active" data-tab="idSearch">Tìm theo SBD</button>
+                <button class="tab-btn" data-tab="nameSearch">Tìm theo tên</button>
+            </div> -->
+            
+            <div class="tab-content" id="idSearch">
+                <form class="search-box" onsubmit="query(event)">
+                    <div class="input-group">
+                        <i class="fas fa-id-card search-icon"></i>
+                        <input type="text" name="sbd" id="sbd" placeholder="Nhập số báo danh..." required>
+                    </div>
+                    <button type="submit">Tra cứu</button>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="nameSearch" style="display:none">
+                <form class="search-box" onsubmit="searchByName(event)">
+                    <div class="input-group">
+                        <i class="fas fa-user search-icon"></i>
+                        <input type="text" name="studentName" id="studentName" placeholder="Nhập tên học sinh..." required>
+                    </div>
+                    <button type="submit">Tra cứu</button>
+                </form>
+            </div>
+        </div>
+        
         <div id="result" class="result"></div>
+        
+        <div class="stats-container">
+            <h3>Thống kê nhanh</h3>
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStudents">...</div>
+                    <div class="stat-label">Tổng số thí sinh</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="passRate">...</div>
+                    <div class="stat-label">Tỷ lệ đạt</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="firstPrize">...</div>
+                    <div class="stat-label">Giải Nhất</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="secondPrize">...</div>
+                    <div class="stat-label">Giải Nhì</div>
+                </div>
+            </div>
+            
+            <div class="subject-filter">
+                <label for="subjectSelect">Xem theo môn học:</label>
+                <select id="subjectSelect" onchange="updateStats()">
+                    <option value="all">Tất cả các môn</option>
+                    <!-- Các option sẽ được thêm bằng JavaScript -->
+                </select>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
